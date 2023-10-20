@@ -66,6 +66,169 @@ export YARN_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 ```
+Reload the changes made above and create directories for HDFS, including the Namenode, Datanode, and logs (Jane, replace 'my user' with your username.):
+```bash
+source ~/.bashrc
+mkdir -p /home/jane/hdfs/namenode
+mkdir -p /home/jane/hdfs/datanode
+mkdir $HADOOP_HOME/logs
+```
+To edit series HFDS configuration files, change directory to the folder and open hadoop-env.sh:
+```bash
+cd $HADOOP_HOME/etc/hadoop
+sudo vim hadoop-env.sh
+```
+Sets the environment variable JAVA_HOME to the path where Java Development Kit (JDK) version 8 is installed (save and close the file)
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+```
+In the same path, edit core-site.xml:
+```bash
+sudo vim core-site.xml
+```
+```bash
+<configuration>
+ <property>
+ <name>fs.defaultFS</name>
+ <value>hdfs://localhost:9000/</value>
+ </property>
+</configuration>
+```
+Edit hdfs-site.xml:
+```bash
+sudo vim hdfs-site.xml
+```
+```bash
+<configuration>
+ <property>
+ <name>dfs.namenode.name.dir</name>
+ <value>file:///home/jane/hdfs/namenode</value>
+ <description>NameNode directory for namespace and transaction logs storage.</description>
+ </property>
+ <property>
+ <name>dfs.datanode.data.dir</name>
+ <value>file:///home/jane/hdfs/datanode</value>
+ <description>DataNode directory</description>
+ </property>
+ <property>
+ <name>dfs.replication</name>
+ <value>1</value>
+ </property>
+</configuration>
+```
+
+Edit mapred-site.xml:
+```bash
+sudo vim mapred-site.xml
+```
+```bash
+<configuration>
+ <property>
+ <name>mapreduce.framework.name</name>
+ <value>yarn</value>
+ </property>
+ <property>
+ <name>yarn.app.mapreduce.am.env</name>
+ <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+ </property>
+ <property>
+ <name>mapreduce.map.env</name>
+ <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+ </property>
+ <property>
+ <name>mapreduce.reduce.env</name>
+ <value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value>
+ </property>
+</configuration>
+```
+Edit yarn-site.xml:
+```bash
+sudo vim yarn-site.xml
+```
+```bash
+<configuration>
+ <property>
+ <name>yarn.nodemanager.aux-services</name>
+ <value>mapreduce_shuffle</value>
+ </property>
+ <property>
+ <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+ <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+ </property>
+ <property>
+ <name>yarn.resourcemanager.hostname</name>
+ <value>localhost</value>
+ </property>
+</configuration>
+```
+Generate ssh key and add to authorized keys in Ubuntu:
+```bash
+cd ~
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+```
+Open these 2 files:
+```bash
+sudo vim /etc/ssh/ssh_config
+```
+```bash
+Port 22
+```
+Do the same for the other file:
+```bash
+sudo vim /etc/ssh/sshd_config
+```
+```bash
+port 22
+```
+
+```bash
+sudo vim ~/.ssh/config
+```
+(save and exit.)
+```bash
+Host *
+ StrictHostKeyChecking no
+```
+Prepare Namenode for HDFS and restart ssh service:
+
+```bash
+hdfs namenode -format
+sudo /etc/init.d/ssh restart
+```
+Finally Start hadoop by below command:
+
+
+```bash
+start-dfs.sh
+start-yarn.sh
+```
+Now, ensure that all these services are started successfully:
+```bash
+jps
+```
+Result:
+```bash
+1456 NodeManager
+560 NameNode
+1137 ResourceManager
+38072 Jps
+910 SecondaryNameNode
+719 DataNode
+```
+Check the version of the website at 'localhost:9870':
+```bash
+localhost:9870
+```
+try to create folder in hdfs :
+```bash
+#create new directory 
+hdfs dfs -mkdir /temp
+#show to folder
+hdfs dfs -ls /
+```
+
 
 
 
