@@ -197,7 +197,7 @@ Prepare Namenode for HDFS and restart ssh service:
 hdfs namenode -format
 sudo /etc/init.d/ssh restart
 ```
-Finally Start hadoop by below command:
+Finally Start hadoop by command:
 
 
 ```bash
