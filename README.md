@@ -1,5 +1,5 @@
-## *** Hadoop *** *Installation & Configuration.*
+## ***Hadoop*** *Installation & Configuration.*
 
-## *** Airflow *** *Installation.*
-## *** mapper | reducer ***
-## *** Hbase *** *Installation & Configuration.*
+## ***Airflow*** *Installation.*
+## ***mapper | reducer***
+## ***Hbase*** *Installation & Configuration.*
