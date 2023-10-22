@@ -307,4 +307,5 @@ python3 MapReducer.py -r hadoop hdfs:///data/sample.json > ./ouput.txt
 
 ## ***Hbase*** *Installation & Configuration.*
 
+
 ## ***RGPD***
