@@ -307,5 +307,49 @@ python3 MapReducer.py -r hadoop hdfs:///data/sample.json > ./ouput.txt
 
 ## ***Hbase*** *Installation & Configuration.*
 
+Install Zookeeper:
+Create Zookeeper data directory:
+```bash
+sudo mkdir -p /data/zookeeper
+```
+Attach ownership to user ‘hadoop’ on this directory:
+
+```bash
+sudo chown -R jane:jane /data/zookeeper
+```
+Download and extract Zookeeper tar file and move to /jane/home:
+
+```bash
+wget https://dlcdn.apache.org/zookeeper/zookeeper-3.8.3/apache-zookeeper-3.8.3-bin.tar.gz
+tar -xvf apache-zookeeper-3.8.3-bin.tar.gz1-bin.tar.gz
+sudo mv apache-zookeeper-3.8.3-bin zookeeper
+sudo mv zookeeper /home/jane/
+```
+Configure ZooKeeper in standalone mode. Create a new zoo.cfg file in the zookeeper directory under /home/jane/zookeeper:
+```bash
+sudo nano /home/jane/zookeeper/conf/zoo.cfg
+```
+```bash
+# Add following lines (save and close zoo.cfg):
+tickTime = 2000  
+dataDir = /data/zookeeper  
+clientPort = 2181  
+initLimit = 5  
+syncLimit = 2
+```
+```bash
+create 'test_table', 'language'
+alter 'test_table', NAME => 'language'
+```
+
+Start Zookeeper service using below command (it should show like this):
+
+```bash
+sudo /home/jane/zookeeper/bin/zkServer.sh start
+```
+Connect to Zookeeper server on this localhost machine (looks like this):
+```bash
+sudo /home/jane/zookeeper/bin/zkCli.sh -server 127.0.0.1:2181
+```
 
 ## ***RGPD***

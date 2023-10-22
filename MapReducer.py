@@ -3,7 +3,7 @@ from mrjob.job import MRJob
 from mrjob.step import MRStep
 
 
-class WordCounter(MRJob):
+class MapReducer(MRJob):
     def mapper(self,key,value):
         data = json.loads(value)
         for x in data:
@@ -29,5 +29,5 @@ class WordCounter(MRJob):
             )
         ]
 if __name__ == '__main__':
-    WordCounter.run()
+    MapReducer.run()
     
