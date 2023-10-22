@@ -241,5 +241,37 @@ hdfs dfs -ls /
 
 
 ## ***Airflow*** *Installation.*
+
+Pip is a tool that manages and is designed to install the packages that are written for python and written in python. Pip is required to download Apache Airflow. Run through the following code commands to implement this step:
+```bash
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-setuptools
+sudo apt install python3-pip
+sudo -H pip3 install --upgrade pip
+```
+
+Install Airflow Dependencies:
+For airflow to work properly you need to install all its dependencies. Without dependencies Airflow cannot function to its potential i.e, there would be a lot of missing features and may even give bugs. To avoid it run the following commands and install all dependencies.
+```bash
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install libssl-dev
+sudo apt-get install libkrb5-dev
+```
+
+Airflow uses SQLite as its default database
+
+ Install Airflow:
+ ```bash
+ export AIRFLOW_HOME=~/airflow
+ sudo pip3 install apache-airflow
+ # initialize the database
+ pip3 install typing_extensions
+ #start default port is 8080
+ airflow db init
+ airflow webserver -p 8080
+ ```
+
 ## ***mapper | reducer***
 ## ***Hbase*** *Installation & Configuration.*
