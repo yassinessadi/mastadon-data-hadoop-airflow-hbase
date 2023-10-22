@@ -276,7 +276,7 @@ Airflow uses SQLite as its default database
 ## ***mapper | reducer***
 >command to run the MapReducer
 ```bash
-python3 MapReducer.py -r hadoop hdfs:///data/sample.json
+python3 MapReducer.py -r hadoop hdfs:///data/sample.json > ./ouput.txt
 ```
 1. `MRJob`:
    - `MRJob` is a class provided by the `mrjob` library, serving as the base class for creating MapReduce jobs in Python.
