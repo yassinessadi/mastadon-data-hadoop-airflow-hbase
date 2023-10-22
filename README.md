@@ -274,4 +274,8 @@ Airflow uses SQLite as its default database
  ```
 
 ## ***mapper | reducer***
+>
+
 ## ***Hbase*** *Installation & Configuration.*
+
+## ***RGPD***

@@ -1,0 +1,7 @@
+"language:en"	13
+"language:es"	1
+"language:fi"	1
+"language:fr"	2
+"language:it"	1
+"language:ja"	1
+"language:nl"	1

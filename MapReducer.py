@@ -7,18 +7,19 @@ class WordCounter(MRJob):
     def mapper(self,key,value):
         data = json.loads(value)
         for x in data:
-            username = x.get('account').get('username')
-            followers = x.get('account').get('followers_count')
+            # username = x.get('account').get('username')
+            # followers = x.get('account').get('followers_count')
             language = x.get("language")
             yield(f"language:{language}",1)
-            yield(f"followers:{username}",followers)
+            # yield(f"followers:{username}",followers)
             # yield(username, 1)
 
     def combiner(self, key, values):
         yield(key, sum(values))
     
     def reducer(self,key,values):
-        yield(key,sum(values))
+        yield(key, sum(values))
+        
 
     def steps(self):
         return [
