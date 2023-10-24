@@ -1,48 +1,69 @@
+# import the libs
 import happybase
 
-connection = happybase.Connection('127.0.0.1',9090)
-table_name = 'test_table'
-table_name1 = 'test_table1'
 
+# made connection with hbase on localhost:9090
+connection = happybase.Connection('127.0.0.1',9090)
+
+# tables names
+user_table = 'user_table'
+post_table = 'post_table'
+
+# read the content of txt file included on the root.
 f = open("output.txt", "r")
 
-table = connection.table(table_name)
 
-connection.create_table(
-    table_name1,
-    {
-        'post_details':dict()
-    }
-)
+# check if the tables exists.
+table_list = [t.decode('utf-8') for t in connection.tables()]
 
-table1 = connection.table(table_name1)
+# create the table if not exist (user table)
+if user_table not in table_list :
+    connection.create_table(
+        user_table,
+        {
+            'user_details':dict()
+        }
+    )
+# create the table if not exist (post table)
+if post_table not in table_list :
+    connection.create_table(
+        post_table,
+        {
+            'post_details':dict()
+        }
+    )
 
-# for data in table.scan():
-#     print(data)
+# make connection to tables
+table_user = connection.table(user_table)
+table_post = connection.table(post_table)
+
+# retreive if there is any data 
+for data in table_user.scan():
+    print(data)
+for data in table_post.scan():
+    print(data)
+# get the data base on the column family and row key
 # ps = table.row(row='fr',columns=['post:language'])
 # print(ps)
+
+# insert into the tables
 for x in f:
-    # print(x)
+    # get line from the content the text file splited by "
     item = x.split('"')
-    key = item[1]
-    row_key = item[1].split(':')[0]
-    if  row_key == 'following_count' or row_key == 'followers_count' or row_key == 'status_count':
-        print(key.split(":")[1],key.split(":")[0],item[2])
-        # table.put(key.split(':')[1], {"user_details:" + key.split(":")[0]:item[2].strip()})
-    elif row_key =='username' or row_key == 'created_at' or row_key == 'url':
-        print(key.split(":")[1],key.split(":")[0],item[3])
-        # table.put(key.split(':')[1], {"user_details:" + key.split(":")[0]:item[3].strip()})
-    elif row_key =='language' or row_key == 'tag' or row_key == 'visibility':
-        # print(key.split(":")[1],key.split(":")[0],item[3].strip())
-        table1.put(key.split(':')[1], {"post_details:" + key.split(":")[0]:item[3].strip()})
-    elif row_key == 'media' or row_key == 'favourites_count' or row_key == 'reblogs_count':
-        # print(key.split(":")[1],key.split(":")[0],item[2].strip())
-        table1.put(key.split(':')[1], {"post_details:" + key.split(":")[0]:item[2].strip()})
-    # value = item[2].strip()
-    # # print(f"Row Key: {key.split(':')[1]}, Column Family: {row_key}, Value: {value}")
-    # data = {row_key:value}
-    # print(data)
-    # table.put(key.split(':')[1], data)
+    # get the column name from the line
+    column = item[1].split(':')[0]
+    # get the row key from the line
+    row_key = item[1].split(':')[1]
+    # get the value from the line
+    values = item[1].split(':')[0]
+    if  values == 'following_count' or values == 'followers_count' or values == 'status_count':
+        table_user.put(row_key, {"user_details:" + column:item[2].strip()})
+    elif values =='username' or values == 'created_at' or values == 'url':
+        table_user.put(row_key, {"user_details:" + column:item[3].strip()})
+    elif values =='language' or values == 'tag' or values == 'visibility':
+        table_post.put(row_key, {"post_details:" + column:item[3].strip()})
+    elif values == 'media' or values == 'favourites_count' or values == 'reblogs_count':
+        table_post.put(row_key, {"post_details:" + column:item[2].strip()})
 
 f.close()
 connection.close()
