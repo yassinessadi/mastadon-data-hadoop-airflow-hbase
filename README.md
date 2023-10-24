@@ -269,7 +269,7 @@ Airflow uses SQLite as its default database
  # initialize the database
  pip3 install typing_extensions
  #start default port is 8080
- airflow db init
+ airflow db migrate
  airflow webserver -p 8080
  ```
 
