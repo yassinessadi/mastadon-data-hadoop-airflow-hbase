@@ -4,6 +4,7 @@
 As a data engineer, my goal is to create a robust big data pipeline by extracting data from the Mastodon API, transforming it with MapReduce into key-value pairs, and storing it efficiently in HBase. I will enhance workflow management by integrating Apache Airflow for automated execution and real-time monitoring.
 
 `Mastodon` is an open-source social media platform with a robust `API`. Its `key` features include secure authentication, user account management, toot (tweet) management, notifications, various timelines access, user interactions, search functionality, and streaming capabilities. Additionally, it offers other information
+
 `Technologies`:
 Apache hadoop, HBase, Airflow, Python.
 
