@@ -290,9 +290,10 @@ Airflow uses SQLite as its default database
 
 
 ## ***mapper | reducer***
->command to run the MapReducer
+>command to run the MapReducer with input & output
+
 ```bash
-python3 MapReducer.py -r hadoop hdfs:///data/sample.json > ./ouput.txt
+python3 wordcounter.py -r hadoop hdfs:///data/sample.json -o hdfs:///output
 ```
 1. `MRJob`:
    - `MRJob` is a class provided by the `mrjob` library, serving as the base class for creating MapReduce jobs in Python.
@@ -351,11 +352,7 @@ tickTime = 2000
 dataDir = /data/zookeeper  
 clientPort = 2181  
 initLimit = 5  
-syncLimit = 2
-```
-```bash
-create 'test_table', 'language'
-alter 'test_table', NAME => 'language'
+syncLimit = 3
 ```
 
 Start Zookeeper service using below command (it should show like this):
@@ -366,6 +363,96 @@ sudo /home/jane/zookeeper/bin/zkServer.sh start
 Connect to Zookeeper server on this localhost machine (looks like this):
 ```bash
 sudo /home/jane/zookeeper/bin/zkCli.sh -server 127.0.0.1:2181
+```
+
+
+Download and install [hbase](https://dlcdn.apache.org/hbase/2.5.6/hbase-2.5.6-bin.tar.gz) 2.5.6, extract and move folder to /home/jane:
+```bash
+wget https://dlcdn.apache.org/hbase/2.5.6/hbase-2.5.6-bin.tar.gz
+tar -xzf hbase-2.5.6-bin.tar.gz
+sudo mv hbase-2.5.6 hbase
+sudo mv hbase /home/jane
+sudo chmod 777 /home/jane/hbase
+```
+Open .bashrc file:
+```bash
+sudo vim ~/.bashrc
+```
+and add below lines in end (save and close (`env path`)):
+```bash
+export HBASE_HOME=/home/jane/hbase
+export PATH=$PATH:$HBASE_HOME/bin
+```
+Open hbase-env.sh:
+```bash
+#jane => your username
+sudo nano /home/jane/hbase/conf/hbase-env.sh
+```
+Edit this file:
+```bash
+sudo nano /home/jane/hbase/conf/hbase-site.xml
+```
+add following lines to make configuration look like:
+```bash
+<configuration>
+<property>
+<name>hbase.rootdir</name>
+<value>/home/jane/hbase</value>
+</property>
+<property>
+<name>hbase.zookeeper.property.dataDir</name>
+<value>/data/zookeeper</value>
+</property>
+<property>
+<name>hbase.cluster.distributed</name>
+<value>true</value>
+</property>
+</configuration>
+```
+Before running hbase, make sure HDFS is running using jps command (if not then ‘start-dfs.sh & start-yarn.sh’ under hadoop/bin folder should do it:
+```bash
+jps
+```
+Once confirmed then start hbase:
+
+```bash
+sudo /home/jane/hbase/bin/start-hbase.sh
+```
+If you encounter any permission denied issues, like this
+```bash
+(root@127.0.0.1) Password:
+```
+please attempt to change the root password using the command below (ensure that you remember the password):
+```bash
+sudo passwd root
+```
+Try running hbase again.
+if it's still not working, restart your computer and then [retry the process](/home/jane/hbase/bin/start-hbase.sh).
+[For more information, check..](https://askubuntu.com/questions/9017/how-to-find-out-root-password-for-installing-software)
+
+To write some queries, run this command
+```bash
+sudo /home/jane/hbase/bin/hbase shell
+```
+Enter hbase shell (looks like this):
+```bash
+Version 2.5.6, r7ebd4381261fefd78fc2acf258a95184f4147cee, Thu Jun  1 17:42:49 PDT 2023
+Took 0.0018 seconds
+hbase:001:0>
+```
+To ensure everything is working fine, create a table in HBase using the DML command below.
+
+```bash
+create 'employee','emp_contact_data','emp_professional_data'
+# to insert into the table:
+put 'employee','7','emp_contact_data:first_name','jane'
+put 'employee','7','emp_contact_data:last_name','essadi'
+```
+For more information about this process, please check the documentation from [here](https://www.cloudduggu.com/hbase/dml-commands/).
+
+To exit from the shell, type:
+```bash
+hbase:002:0> exit
 ```
 
 ## ***RGPD***
