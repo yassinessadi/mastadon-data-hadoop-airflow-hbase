@@ -1,5 +1,6 @@
 ## *project context*
 `project` aims to analyze social media data to obtain information about user engagement, content popularity, etc.. It utilizes MapReduce for data processing, stores the results in HBase, and orchestrates the workflow using Apache Airflow.
+
 `Mission:`
 As a data engineer, my goal is to create a robust big data pipeline by extracting data from the Mastodon API, transforming it with MapReduce into key-value pairs, and storing it efficiently in HBase. I will enhance workflow management by integrating Apache Airflow for automated execution and real-time monitoring.
 
@@ -10,7 +11,7 @@ Apache hadoop, HBase, Airflow, Python.
 
 Before delving deeply into the project, we need to install the project requirements.
 So let's get start:
-## ***Hadoop*** *Installation & Configuration on WSL2 (ubuntu)*
+## ***Hadoop*** *Installation & Configuration on [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) (ubuntu)*
 > To install Hadoop, follow the [link](https://hadoop.apache.org/releases.html). In my case, I'm using Hadoop version 3.2.4 (binary).
 [Download Hadoop 3.2.4](https://dlcdn.apache.org/hadoop/common/hadoop-3.2.4/hadoop-3.2.4.tar.gz)
 
