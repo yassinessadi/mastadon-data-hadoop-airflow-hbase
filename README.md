@@ -371,4 +371,4 @@ sudo /home/jane/zookeeper/bin/zkCli.sh -server 127.0.0.1:2181
 ## ***RGPD***
 `Data Privacy & GDPR Compliance`
 
-Our project values your privacy and GDPR compliance. We collect and process personal data only with valid consent or legal obligations, using it solely for specified purposes. Rigorous security measures protect data, and users have rights to access, rectify, delete, or limit processing. Data retention is lawful, and our transparent privacy policy details everything. For questions or concerns, contact us."
+Our project values the privacy and GDPR compliance of `Mastodon` users. We collect and process personal data only with valid consent or legal obligations, using it solely for specified purposes. Rigorous security measures protect data, and users have rights to access, rectify, delete, or limit processing. Data retention is lawful, and our transparent privacy policy details everything. For questions or concerns, contact us."
