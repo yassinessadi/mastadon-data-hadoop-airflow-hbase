@@ -248,47 +248,6 @@ hdfs dfs -ls /
 
 
 
-
-
-
-
-
-
-
-## ***Airflow*** *Installation.*
-
-Pip is a tool that manages and is designed to install the packages that are written for python and written in python. Pip is required to download Apache Airflow. Run through the following code commands to implement this step:
-```bash
-sudo apt-get install software-properties-common
-sudo apt-add-repository universe
-sudo apt-get update
-sudo apt-get install python-setuptools
-sudo apt install python3-pip
-sudo -H pip3 install --upgrade pip
-```
-
-Install Airflow Dependencies:
-For airflow to work properly you need to install all its dependencies. Without dependencies Airflow cannot function to its potential i.e, there would be a lot of missing features and may even give bugs. To avoid it run the following commands and install all dependencies.
-```bash
-sudo apt-get install libmysqlclient-dev
-sudo apt-get install libssl-dev
-sudo apt-get install libkrb5-dev
-```
-
-Airflow uses SQLite as its default database
-
- Install Airflow:
- ```bash
- export AIRFLOW_HOME=~/airflow
- sudo pip3 install apache-airflow
- # initialize the database
- pip3 install typing_extensions
- #start default port is 8080
- airflow db migrate
- airflow webserver -p 8080
- ```
-
-
 ## ***mapper | reducer***
 >command to run the MapReducer with input & output
 
@@ -421,13 +380,14 @@ sudo /home/jane/hbase/bin/start-hbase.sh
 If you encounter any permission denied issues, like this
 ```bash
 (root@127.0.0.1) Password:
+permission denied, please try again
 ```
 please attempt to change the root password using the command below (ensure that you remember the password):
 ```bash
 sudo passwd root
 ```
 Try running hbase again.
-if it's still not working, restart your computer and then [retry the process](/home/jane/hbase/bin/start-hbase.sh).
+if it's still not working, restart your computer and then retry the process
 [For more information, check..](https://askubuntu.com/questions/9017/how-to-find-out-root-password-for-installing-software)
 
 To write some queries, run this command
@@ -454,6 +414,77 @@ To exit from the shell, type:
 ```bash
 hbase:002:0> exit
 ```
+
+
+
+## ***Airflow*** *Installation.*
+
+Pip is a tool that manages and is designed to install the packages that are written for python and written in python. Pip is required to download Apache Airflow. Run through the following code commands to implement this step:
+```bash
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-setuptools
+sudo apt install python3-pip
+sudo -H pip3 install --upgrade pip
+```
+
+Install Airflow Dependencies:
+For airflow to work properly you need to install all its dependencies. Without dependencies Airflow cannot function to its potential i.e, there would be a lot of missing features and may even give bugs. To avoid it run the following commands and install all dependencies.
+```bash
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install libssl-dev
+sudo apt-get install libkrb5-dev
+```
+
+Airflow uses SQLite as its default database
+
+ Install Airflow:
+ ```bash
+ export AIRFLOW_HOME=~/airflow
+ sudo pip3 install apache-airflow
+ # initialize the database
+ pip3 install typing_extensions
+ #start default port is 8080 if want to change it just use the -p 8081 for exmaple
+ airflow db migrate
+
+ airflow webserver -p 8080
+#  open new terminal& type
+ airflow scheduler
+ ```
+Everything is good to go. Try running the web version on port 8080 in Google Chrome :
+```bash
+localhost:8080
+#if you using any other port try to use like this
+# ---> localhost:8081
+```
+Now, you need to create a user. You can use this command to create a user:
+```bash
+airflow users  create --role Admin --username jane --email yasine.esadi@gmail.com --firstname yassine --lastname essadi --password admin
+```
+Go to Google and attempt to use the login as:
+```bash
+username:admin
+password:admin
+```
+Everything is complete. now you need to create DAGs 
+in Airflow, a `DAG` (`Directed Acyclic Graph`) is a `collection` of tasks with defined `dependencies`. It `specifies` the `order` in which `tasks` should be `executed`, allowing you to `automate` and `schedule` `workflows`.
+To create a DAG, run the commands below.
+```bash
+cd ~
+# airflow dir
+cd airflow
+# create a dir
+mkdir dags
+cd dags
+# create a file
+touch runner_air_app.py
+```
+To run a command in Python using Airflow's BashOperator, it looks like this, as you can see in the file called runner_air_app.py.
+
+Now that everything is done, simply restart Airflow. You can do this by stopping it with 'Ctrl + C' and then running it again with the command `airflow webserver` & `airflow scheduler` as shown in the previous command.
+
+
 
 ## ***RGPD***
 `Data Privacy & GDPR Compliance`
