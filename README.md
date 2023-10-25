@@ -5,6 +5,8 @@ As a data engineer, my goal is to create a robust big data pipeline by extractin
 
 `Mastodon` is an open-source social media platform with a robust `API`. Its `key` features include secure authentication, user account management, toot (tweet) management, notifications, various timelines access, user interactions, search functionality, and streaming capabilities. Additionally, it offers other information
 
+Before delving deeply into the project, we need to install the project requirements.
+So let's get start:
 ## ***Hadoop*** *Installation & Configuration on WSL2 (ubuntu)*
 > To install Hadoop, follow the [link](https://hadoop.apache.org/releases.html). In my case, I'm using Hadoop version 3.2.4 (binary).
 [Download Hadoop 3.2.4](https://dlcdn.apache.org/hadoop/common/hadoop-3.2.4/hadoop-3.2.4.tar.gz)
