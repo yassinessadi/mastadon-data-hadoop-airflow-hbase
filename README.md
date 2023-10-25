@@ -4,6 +4,8 @@
 As a data engineer, my goal is to create a robust big data pipeline by extracting data from the Mastodon API, transforming it with MapReduce into key-value pairs, and storing it efficiently in HBase. I will enhance workflow management by integrating Apache Airflow for automated execution and real-time monitoring.
 
 `Mastodon` is an open-source social media platform with a robust `API`. Its `key` features include secure authentication, user account management, toot (tweet) management, notifications, various timelines access, user interactions, search functionality, and streaming capabilities. Additionally, it offers other information
+`Technologies`:
+Apache hadoop, HBase, Airflow, Python.
 
 Before delving deeply into the project, we need to install the project requirements.
 So let's get start:
@@ -18,11 +20,13 @@ wget https://dlcdn.apache.org/hadoop/common/hadoop-3.2.4/hadoop-3.2.4.tar.gz
 ```
 Once WSL ubuntu prompt is available, execute these commands one by one :
 (Note: I'm using Vim as a text-based editor, but you can use any text editor you prefer)
+
 ```bash
 sudo apt update 
 sudo apt upgrade
 sudo vim
 ```
+
 After you've set up the WSL environment, make sure to install the dependencies :
 ``` bash
 sudo apt-get update
