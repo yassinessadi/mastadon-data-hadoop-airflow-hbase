@@ -1,3 +1,8 @@
+## *project context*
+`project` aims to analyze social media data to obtain information about user engagement, content popularity, etc.. It utilizes MapReduce for data processing, stores the results in HBase, and orchestrates the workflow using Apache Airflow.
+`Mission:`
+As a data engineer, my goal is to create a robust big data pipeline by extracting data from the Mastodon API, transforming it with MapReduce into key-value pairs, and storing it efficiently in HBase. I will enhance workflow management by integrating Apache Airflow for automated execution and real-time monitoring.
+
 ## ***Hadoop*** *Installation & Configuration on WSL2 (ubuntu)*
 > To install Hadoop, follow the [link](https://hadoop.apache.org/releases.html). In my case, I'm using Hadoop version 3.2.4 (binary).
 [Download Hadoop 3.2.4](https://dlcdn.apache.org/hadoop/common/hadoop-3.2.4/hadoop-3.2.4.tar.gz)
@@ -273,6 +278,8 @@ Airflow uses SQLite as its default database
  airflow webserver -p 8080
  ```
 
+## ***data Source | { Mastodon API }:***
+`Mastodon` is an open-source social media platform with a robust `API`. Its `key` features include secure authentication, user account management, toot (tweet) management, notifications, various timelines access, user interactions, search functionality, and streaming capabilities. Additionally, it offers other information
 ## ***mapper | reducer***
 >command to run the MapReducer
 ```bash
