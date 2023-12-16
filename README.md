@@ -27,11 +27,11 @@ Once WSL ubuntu prompt is available, execute these commands one by one :
 sudo apt update 
 sudo apt upgrade
 sudo vim
-# to exit from vim use without save:
+# to exit from vim without save use:
 Echap + :q!
 # to save & exit use
 echap + :wq
-for more help using vim please check:
+# for more help using vim please check:
 echap + :h
 ```
 
